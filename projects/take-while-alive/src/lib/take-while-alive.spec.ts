@@ -1,5 +1,5 @@
-import { takeWhileAlive, AutoUnsubscribe } from "./take-while-alive";
-import { Subject } from "rxjs";
+import { takeWhileAlive, AutoUnsubscribe } from './take-while-alive';
+import { Subject } from 'rxjs';
 
 describe('takeWhileAlive', () => {
     it('sets the __isComponentAlive property', () => {
@@ -46,7 +46,7 @@ describe('takeWhileAlive', () => {
 
 
 describe('AutoUnsubscribe', () => {
-    it('sets ngOnDestroy on prototype if it not exists', ()=> {
+    it('sets ngOnDestroy on prototype if it not exists', () => {
         @AutoUnsubscribe()
         class TestClass {}
 
@@ -54,7 +54,7 @@ describe('AutoUnsubscribe', () => {
 
         expect(testClass['ngOnDestroy']).not.toBeUndefined();
     });
-    it('keeps ngOnDestroy if it exists', ()=> {
+    it('keeps ngOnDestroy if it exists', () => {
         @AutoUnsubscribe()
         class TestClass {
             ngOnDestroy() {}
