@@ -1,15 +1,25 @@
 sudo: required
 addons:
-    chrome: stable
-
+  chrome: stable
 language: node_js
 node_js:
-    - "node"
-
+- node
 branches:
-    only:
-    - master
-
+  only:
+  - master
 script:
-    - npm run test:lib
-    - npm run build:lib
+- npm run test:lib
+- npm run build:lib
+
+before_deploy:
+  - cd dist/take-while-alive
+
+deploy:
+  provider: npm
+  email: github@joost.io
+  skip_cleanup: true
+  api_key:
+    secure: IT6/MLGL29NNElNSHvKLez+bpClxh9fFQ9EMyPYa1mjNSX5syIh89n8sx2i2OaTzEx1eVt+RUwnhWnzdLv41jNscE0vP1jr1MZ/0p9o0cHd0fSpkQiKGVLKg5kLQhLkxX0+Ox3YGaK+1aEUS68G+3LrkBzu1WSVog7+Hj6Z5huYE8lbNOdWqHx7+vlCY3cS31j7I/cnOMpkwmkabWw9SwQmsjruYOnSamF8ZX3AWYwWQ4X1Oh1VIxovtzmdUBbtXaalijIR+Rp4EBNdSxEtyAFDBNIZS154fre3fVKj1lGfqD6Bpg9vWUtFHSaGvV2149f904c7kKoCHWOuRhaGVDyDySIKd3bynOgi45x8zhnykuY8SAmw8T5Ohm9oSltlpeQX5QTBUnallbkDEzilnnBAPxAr3EjhRR6dEQ6+0Ogz30ygLedf+aSUD+l9etEpcXktCOZo7hyxZ/I3EkyAZNh0DDG8bcNKGm2JRcaEDEW27/2XDefgQuJl505h4Gs5StZNqlEaDvqqutnTxGh0NpfMTyu87Ob8D/RlcUZkQj8p1QFdMa2leWqaceC8/2L0VB1tyoPS4Wm3P0fOoOC6S9cWLKiYtFEJQyL7eAAYV3JRvUNEBHV3sTT+vYWpuQO7u6f5qdG8Zp2goC0QBwy5DrnUrrTiVj5DSUx5ldZHCPSw=
+  on:
+    tags: true
+    repo: joostme/takeWhileAlive
