@@ -11,6 +11,7 @@ script:
 - npm run build:lib
 
 before_deploy:
+  - cp README.md dist/take-while-alive/README.md
   - cd dist/take-while-alive
 
 deploy:
