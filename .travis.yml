@@ -1,15 +1,20 @@
 sudo: required
 addons:
-  chrome: stable
+    chrome: stable
 
 language: node_js
 node_js:
-  - "node"
+    - "node"
 
 branches:
-  only:
+    only:
     - master
 
 script:
     - npm run test:lib
     - npm run build:lib
+
+notifications:
+  slack:
+    rooms:
+      secure: aNvKjU2V1ufj1phDxIw0cNhpb5DcFKFvUx9wFoqRyRA++GWXUu2ITjtLRlepf4KIWuhOpSEzjdE0NqutI9Q3h77M/iwwuLsWZMIh+oyDchFQkkS3s8ZFtan4q68qTQpSc9ljhuCTcn7b9DMc6M0QpEvTb/uMYPTMD+bzIsAcxoRG4l/T0BUsweZbJc+4tQoIGs5XHCY5Co5dOkW0ELWuAD8GfJlUqgQQeXcFP+gB5RYpXESVH227i/Gf3wKRke/dKmRYuoTY9+ewl7fdLN+W1ye8JkyP+yLRyd7MQD98989formKGbcW++Cx1sRUXSxgaVRjFDUvbRECLgvM7lEA50nBCkRp3CkWtwI3bZ3JcbWvYrsgx3PDPHmwfGYSyZ7CdOrdN8mF3kHai9/U1m5Xxk2QnJhoUjvhZJAYdnkS+3yZdNSp6tli5J+0uVo4MGVsvq2+a2MFsC/NhWUJ/yBVt6G/E0/90LwoFiXDjRgMDKDypQSdmNV9VDDIezGWY3HWp/NivmMeE6qbMFLv3hgexefRtSPWGjk/vaKdsLJoZWn7NWH46PTyd7wW0+LoaXqUkPB0V0bbSjZOMAMU918z0HGpXlKgqDO6+g8xyYPGsT8Zsx69TgJYousneuC55PD4IFr3niALNq9opXUjbgiSimn6BbnNTuSb0H1Zj9MH714=
