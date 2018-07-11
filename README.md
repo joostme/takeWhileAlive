@@ -1,27 +1,72 @@
-# TakeWhileAliveExample
+# TakeWhileAlive
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
+## Dependencies
 
-## Development server
+Requires RxJs >= 6.0.0
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## What it does
 
-## Code scaffolding
+Automatically unsubscribe any active subscriptions inside Angular components/services using a custom operator.
+In the background the `takeWhile` RxJs operator is used.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+This prevents leaks that are caused by subscriptions that are still alive even when the component was already destroyed.
 
-## Build
+## How to use it
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+> Before
 
-## Running unit tests
+```ts
+@Component({
+    selector: 'twa-example',
+    templateUrl: './example.component.html',
+    styleUrls: ['./example.component.scss']
+})
+export class ExampleComponent {
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+    counter = 0;
 
-## Running end-to-end tests
+    constructor() {
+        timer(1000, 1000)
+        .subscribe(num => {
+            this.counter = num;
+        });
+    }
+}
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```
 
-## Further help
+> After
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```ts
+import { AutoUnsubscribe, takeWhileAlive } from 'takeWhileAlive';
+
+...
+
+@Component({
+    selector: 'twa-example',
+    templateUrl: './example.component.html',
+    styleUrls: ['./example.component.scss']
+})
+@AutoUnsubscribe() // <<< Add @AutoUnsubsribe() Decorator
+export class ExampleComponent {
+
+    counter = 0;
+
+    constructor() {
+        timer(1000, 1000)
+        .pipe(
+            takeWhileAlive(this) // <<< Add takeWhileAlive(this) operator
+        )
+        .subscribe(num => {
+            this.counter = num;
+        });
+    }
+}
+
+```
+
+## How it works
+
+The `@AutoUnsubscribe()` decorator adds a `__isComponentAlive` property to the component and creates a `ngOnDestroy()` function on the class prototype if it not exists.
+
+The `takeWhileAlive(...)` operator is basically a `takeWhile` operator that unsubscribes when the `__isComponentAlive` is `false`. When `ngOnDestroy()` is called the `__isComponentAlive` is set to `false`. MAGIC!
