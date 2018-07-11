@@ -1,27 +1,27 @@
 {
-  "name": "take-while-alive",
-  "author": {
-      "name": "Joost Zöllner",
-      "email": "github@joost.io"
-  },
-  "repository": {
-      "url": "https://github.com/joostme/takeWhileAlive"
-  },
-  "description": "Custom rxjs operator to automatically unsubscribe any subscription when an Angular component/service is destroyed",
-  "keywords": [
-      "rxjs",
-      "unsubscribe",
-      "angular",
-      "ngOnDestroy"
-  ],
-  "bugs": {
-      "url": "https://github.com/joostme/takeWhileAlive/issues"
-  },
-  "license": "MIT",
-  "version": "0.0.1",
-  "peerDependencies": {
-    "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
-    "@angular/core": "^6.0.0-rc.0 || ^6.0.0",
-    "rxjs": "^6.2.1"
-  }
+    "name": "take-while-alive",
+    "author": {
+        "name": "Joost Zöllner",
+        "email": "github@joost.io"
+    },
+    "repository": {
+        "url": "https://github.com/joostme/takeWhileAlive"
+    },
+    "description": "Custom rxjs operator to automatically unsubscribe any subscription when an Angular component/service is destroyed",
+    "keywords": [
+        "rxjs",
+        "unsubscribe",
+        "angular",
+        "ngOnDestroy"
+    ],
+    "bugs": {
+        "url": "https://github.com/joostme/takeWhileAlive/issues"
+    },
+    "license": "MIT",
+    "version": "1.0.0",
+    "peerDependencies": {
+        "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
+        "@angular/core": "^6.0.0-rc.0 || ^6.0.0",
+        "rxjs": "^6.2.1"
+    }
 }
