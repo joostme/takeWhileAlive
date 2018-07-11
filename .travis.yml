@@ -1,12 +1,11 @@
 sudo: required
 addons:
   chrome: stable
+
 language: node_js
 node_js:
 - node
-branches:
-  only:
-  - master
+
 script:
 - npm run test:lib
 - npm run build:lib
