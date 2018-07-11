@@ -20,11 +20,9 @@ export function takeWhileAlive<T>(component: any): MonoTypeOperatorFunction<T> {
 export function AutoUnsubscribe(): ClassDecorator {
     return target => {
         const original = target.prototype.ngOnDestroy;
-
-        target.prototype.ngOnDestroy = function () {
-            if (original) {
-                original.apply(this, arguments);
-            }
-        };
+        if (!original) {
+            target.prototype.ngOnDestroy = function () {
+            };
+        }
     };
 }
