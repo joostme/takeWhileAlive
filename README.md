@@ -1,5 +1,5 @@
 # TakeWhileAlive
-
+[![Build Status](https://travis-ci.org/joostme/takeWhileAlive.svg?branch=master)](https://travis-ci.org/joostme/takeWhileAlive)
 ## Dependencies
 
 Requires RxJs >= 6.0.0
@@ -67,6 +67,6 @@ export class ExampleComponent {
 
 ## How it works
 
-The `@AutoUnsubscribe()` decorator adds a `__isComponentAlive` property to the component and creates a `ngOnDestroy()` function on the class prototype if it not exists.
+The `@AutoUnsubscribe()` decorator adds a `__isComponentAlive` property to the component and creates a `ngOnDestroy()` function on the class prototype if it not exists. (This is needed because Angular won't call the function if it is not on the prototype when the component class is instantiated)
 
 The `takeWhileAlive(...)` operator is basically a `takeWhile` operator that unsubscribes when the `__isComponentAlive` is `false`. When `ngOnDestroy()` is called the `__isComponentAlive` is set to `false`. MAGIC!
