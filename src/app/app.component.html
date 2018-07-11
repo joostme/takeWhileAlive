@@ -1,0 +1,4 @@
+<twa-example *ngIf="exampleAlive"></twa-example>
+<twa-example-bad *ngIf="exampleAlive"></twa-example-bad>
+
+<button (click)="switchExample()">{{ exampleAlive ? 'Destroy component' : 'Create component'}}</button>
