@@ -1,28 +1,24 @@
 import { MonoTypeOperatorFunction } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 
+const isAlivePropName = '__isComponentAlive';
 
 export function takeWhileAlive<T>(component: any): MonoTypeOperatorFunction<T> {
-    component.__isComponentAlive = true;
-    const oldNgOnDestroy: Function = component.ngOnDestroy;
-
-    component.ngOnDestroy = function () {
-        if (oldNgOnDestroy) {
-            oldNgOnDestroy.apply(component);
-        }
-        component.__isComponentAlive = false;
-    };
-
-    return takeWhile<T>(() => component.__isComponentAlive);
+    return takeWhile<T>(() => component[isAlivePropName]);
 }
 
 
 export function AutoUnsubscribe(): ClassDecorator {
     return target => {
-        const original = target.prototype.ngOnDestroy;
-        if (!original) {
-            target.prototype.ngOnDestroy = function () {
-            };
-        }
+        const proto = target.prototype;
+        const originalNgOnDestroy: Function = proto.ngOnDestroy;
+
+        proto[isAlivePropName] = true;
+        target.prototype.ngOnDestroy = function () {
+            if (originalNgOnDestroy) {
+                originalNgOnDestroy.apply(this);
+            }
+            this[isAlivePropName] = false;
+        };
     };
 }

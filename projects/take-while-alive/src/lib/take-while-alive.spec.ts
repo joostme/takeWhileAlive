@@ -1,41 +1,27 @@
 import { takeWhileAlive, AutoUnsubscribe } from './take-while-alive';
 import { Subject } from 'rxjs';
+import { OnDestroy } from '@angular/core';
+
+@AutoUnsubscribe()
+class TestClass { }
+
+@AutoUnsubscribe()
+class TestClassWithDestroy implements OnDestroy {
+    public destroyCalled = false;
+    ngOnDestroy() {
+        this.destroyCalled = true;
+    }
+}
 
 describe('takeWhileAlive', () => {
-    it('sets the __isComponentAlive property', () => {
-        const component = {};
-        takeWhileAlive(component);
-
-        expect(component['__isComponentAlive']).toBe(true);
-    });
-    it('sets the __isComponentAlive property to false on destroy', () => {
-        const component: any = {};
-        takeWhileAlive(component);
-
-        expect(component.__isComponentAlive).toBe(true);
-        component.ngOnDestroy();
-
-        expect(component.__isComponentAlive).toBe(false);
-    });
-    it('calls existing ngOnDestroy function', () => {
-        const component: any = {
-            ngOnDestroy: () => null
-        };
-        takeWhileAlive(component);
-
-        const ngOnDestroySpy = spyOn(component, 'ngOnDestroy');
-        component.ngOnDestroy();
-
-        expect(ngOnDestroySpy).toHaveBeenCalled();
-    });
     it('closes the observable on destroy', () => {
         const source = new Subject();
-        const component: any = {};
+        const component: any = new TestClass();
         let closed = false;
         source.pipe(
             takeWhileAlive(component)
         )
-        .subscribe(() => {}, () => {}, () => closed = true);
+        .subscribe(() => { }, () => { }, () => closed = true);
 
         component.ngOnDestroy();
         source.next();
@@ -46,27 +32,34 @@ describe('takeWhileAlive', () => {
 
 
 describe('AutoUnsubscribe', () => {
+    it('sets the __isComponentAlive property', () => {
+        const component = new TestClass();
+
+        expect(component['__isComponentAlive']).toBe(true);
+    });
+    it('sets the __isComponentAlive property to false on destroy', () => {
+        const component: any = new TestClass();
+
+        expect(component.__isComponentAlive).toBe(true);
+        component.ngOnDestroy();
+
+        expect(component.__isComponentAlive).toBe(false);
+    });
     it('sets ngOnDestroy on prototype if it not exists', () => {
-        @AutoUnsubscribe()
-        class TestClass {}
+        const component = new TestClass();
 
-        const testClass = new TestClass();
-
-        expect(testClass['ngOnDestroy']).not.toBeUndefined();
+        expect(component['ngOnDestroy']).not.toBeUndefined();
     });
     it('keeps ngOnDestroy if it exists', () => {
-        @AutoUnsubscribe()
-        class TestClass {
-            ngOnDestroy() {}
-        }
+        const component = new TestClassWithDestroy();
+        expect(component.destroyCalled).toBe(false);
 
-        const testClass = new TestClass();
+        expect(component.ngOnDestroy).not.toBeUndefined();
 
-        expect(testClass.ngOnDestroy).not.toBeUndefined();
+        const ngOnDestroySpy = spyOn(component, 'ngOnDestroy').and.callThrough();
 
-        const ngOnDestroySpy = spyOn(testClass, 'ngOnDestroy');
-
-        testClass.ngOnDestroy();
+        component.ngOnDestroy();
         expect(ngOnDestroySpy).toHaveBeenCalled();
+        expect(component.destroyCalled).toBe(true);
     });
 });
