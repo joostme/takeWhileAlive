@@ -1,8 +1,15 @@
 # TakeWhileAlive
 [![Build Status](https://travis-ci.org/joostme/takeWhileAlive.svg?branch=master)](https://travis-ci.org/joostme/takeWhileAlive)
+[![npm version](https://badge.fury.io/js/take-while-alive.svg)](https://badge.fury.io/js/take-while-alive)
 ## Dependencies
 
 Requires RxJs >= 6.0.0
+
+## Installation
+
+```
+npm install take-while-alive
+```
 
 ## What it does
 
