@@ -13,8 +13,10 @@ before_deploy:
 deploy:
   provider: npm
   email: github@joost.io
+  skip_cleanup: true
   api_key:
     secure: PR6f3P/AG8aMiXCfzgN/Ibkt+lDh/YZeiDlJTQzieqxruj0UZfxOqi/PTGBU+vq/qFB+7Leoa+G8AihMVb10jGooVjraGvKhzRiWsVZxF3Qh3IHHSodDqNnrn3YcPBMH+EUf1h8Hr4H/X/adeQL5FrjcslVkE1D5z1JD2Eimtk4BEsb54EdXBLC3zJLAcqi7Z3mvg1HjAaw8Rh6ygePfw4fJrbXwzjMQ4/dRRZPu88ZAaKsZBiztm85LEvq0Zi/D7oIUJ1YIcl+FovXF7nLMepgkFhYAZYFqZd5zgcwnKlR7+YUderJirgDUuBfM0E3YnJMAeBDTCETgc9aBxXUsUleBOB5Le4n057ctL+r3yjjaLThKwqFgLjP7yLRCdOqsmjhsMPXL+/Uoh5UwnQUJT/iDa0z4uvWfkoVOtN8isj6sb7sUQsR8FgIZPwKxf2DPm52XWYHngSLwYpgIPbb3Y3kZVglRCxx8t3D0JelBSm25OpcioGs02zrg5xKb3OU9sWjWSt3ffzy4NIp1PMx7ot2NYEnTAZ8PakICMOqB6KKkNyD6sh1lg2vMrphHTmcVlsfQIF/e16dO29Fw2KY8tq4ey89Cuh2+WFFvjNNqd33LX6/rfbl6TxUwN4P1PpQgtMfbIukV2HaPVMqrdAy6zqXGGuZ7LO28G7FOgurg5os=
   on:
+    branch: master
     tags: true
     repo: joostme/takeWhileAlive
