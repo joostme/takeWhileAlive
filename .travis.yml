@@ -7,12 +7,12 @@ node_js:
 - node
 
 script:
-- npm run test:lib
-- npm run build:lib
+- npm run test-ci:lib
+- npm run build-ci:lib
 
 before_deploy:
-  - cp README.md dist/take-while-alive/README.md
-  - cd dist/take-while-alive
+  - cp README.md dist/${LIBRARY_NAME}/README.md
+  - cd dist/${LIBRARY_NAME}
 
 deploy:
   provider: npm

@@ -6,8 +6,10 @@
     "start": "ng serve",
     "build": "ng build",
     "build:lib": "ng build takeWhileAlive",
+    "build-ci:lib": "ng build takeWhileAlive --prod",
     "test": "ng test",
     "test:lib": "ng test takeWhileAlive",
+    "test-ci:lib": "ng test takeWhileAlive --watch=false --browsers=ChromeHeadless",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
