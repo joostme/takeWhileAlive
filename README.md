@@ -45,7 +45,7 @@ export class ExampleComponent {
 > After
 
 ```ts
-import { AutoUnsubscribe, takeWhileAlive } from 'takeWhileAlive';
+import { AutoUnsubscribe, takeWhileAlive } from 'take-while-alive';
 
 ...
 
